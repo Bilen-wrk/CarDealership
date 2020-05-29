@@ -19,7 +19,6 @@ public class HomeController {
         return "home";
     }
 
-
     //form
     @GetMapping("/newCategory")
     public String addCategory(Model model){
@@ -29,9 +28,9 @@ public class HomeController {
 
     @GetMapping("/newCar")
     public String addCar(Model model){
+        model.addAttribute("car", new Car());
         model.addAttribute("count", categoryRepository.count());
         model.addAttribute("categories", categoryRepository.findAll());
-        model.addAttribute("car", new Car());
         return "carform";
     }
     //saving after form is done
@@ -47,21 +46,29 @@ public class HomeController {
         carRepository.save(car);
         return "redirect:/";
     }
-
-
-
-
+    //changes
     @RequestMapping("/detail/{id}")
-    public String detal(@PathVariable ("id") long id, Model model){
+    public String detail(@PathVariable ("id") long id, Model model){
+        model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("car", carRepository.findById(id).get());
         return "detailcar";
     }
-/*
-  @RequestMapping("/carlist")
-    public String detail(Model model){
-        model.addAttribute("")
 
-  }
-*/
+    @RequestMapping("/update/{id}")
+    public String delete(@PathVariable ("id") long id, Model model){
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("car", carRepository.findById(id).get());
+        return "updatecar";
+    }
+
+    @RequestMapping("/delete/{id}")
+    public String update(@PathVariable ("id") long id){
+        carRepository.delete(carRepository.findById(id).get());
+        return "redirect:/";
+    }
+
+
+
+
 
 }

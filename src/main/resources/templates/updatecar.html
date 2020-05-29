@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>updateCare</title>
+</head>
+<body>
+<form th:action="@{/savecarform}" th:object="${car}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    Manufacturer: <br/><input type="text" th:field="*{manufacturer}" /><br/>
+    Model: <br/> <input type="text" th:field="*{model}" /><br/>
+    Year: <br/><input type="number" th:field="*{year}" /><br/>
+    MSRP: <br/><input type="number" th:field="*{msrp}" /><br/>
+    Category: <select th:field="*{category}">
+    <option th:each ="category: ${categories}"
+            th:text="${category.name}"
+            th:value="${category.id}">
+    </option>
+</select>
+    <input type="submit" value="Submit"/>
+</form>
+
+
+</body>
+</html>

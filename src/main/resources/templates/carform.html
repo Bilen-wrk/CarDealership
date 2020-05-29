@@ -10,7 +10,7 @@
 <!--Adding a car is not allowed if no category-->
 <div th:if="${count}==0">
     <div class="alert alert-danger" role="alert">
-       You must first add category!
+       You must first add category first!
         <button><a th:href="@{/newCategory}">Add Category</a></button>
     </div>
 </div>
