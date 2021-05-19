@@ -11,11 +11,11 @@ public class Category {
 
     private String name;
     @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    private Set<Car> cars;
+    private Set<Item> items;
 
     //empty constructor
     public Category(){
-        this.cars=null;
+        this.items=null;
     }
 
     //getters and setters
@@ -37,11 +37,11 @@ public class Category {
         this.name = name;
     }
 
-    public Set<Car> getCars() {
-        return cars;
+    public Set<Item> getItems() {
+        return items;
     }
 
-    public void setCars(Set<Car> cars) {
-        this.cars = cars;
+    public void setItems(Set<Item> items) {
+        this.items = items;
     }
 }

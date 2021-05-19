@@ -2,16 +2,33 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>updateCare</title>
+    <title>Edit your Items </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
+<style>
+    body{
+        font-family: Optima;
+        font-size: medium;
+        background-color: darkturquoise;
+        alignment: center;
+    }
+    form{
+        background: ghostwhite;
+        padding: 40px;
+        max-width: 40%;
+        /*height: 500px;*/
+        margin: 40px auto;
+    }
+</style>
 <body>
-<i class="fas fa-car"></i>
+<!--<i class="fas fa-car"></i>-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
+        <i class='fas fa-cart-plus' style='font-size:48px;color:red'></i>
         <ul class="navbar-nav">
             <li class="nav-item active">
                 <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
@@ -20,18 +37,18 @@
                 <a class="nav-link" th:href="@{/newCategory}">Add Category</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/newCar}">Add Car</a>
+                <a class="nav-link" th:href="@{/newItem}">Add item</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<form th:action="@{/savecarform}" th:object="${car}" method="post">
+<form th:action="@{/saveitemform}" th:object="${item}" method="post">
     <input type="hidden" th:field="*{id}" />
-    Manufacturer: <br/><input type="text" th:field="*{manufacturer}" /><br/>
-    Model: <br/> <input type="text" th:field="*{model}" /><br/>
-    Year: <br/><input type="number" th:field="*{year}" /><br/>
-    MSRP: <br/><input type="number" th:field="*{msrp}" /><br/>
+    Name: <br/><input type="text" th:field="*{name}" /><br/>
+    Quantity: <br/> <input type="number" th:field="*{quantity}" /><br/>
+    Price: <br/><input type="number" th:field="*{price}" /><br/>
+    Description: <br/><input type="text" th:field="*{description}" /><br/>
     Category: <select th:field="*{category}">
     <option th:each ="category: ${categories}"
             th:text="${category.name}"

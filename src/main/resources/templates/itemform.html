@@ -2,16 +2,34 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Detail</title>
+    <title>Creating Shopping list </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
 </head>
+<style>
+    body{
+        font-family: Optima;
+        font-size: medium;
+        background-color: darkturquoise;
+        alignment: center;
+    }
+    form{
+        background: ghostwhite;
+        padding: 40px;
+        max-width: 40%;
+        /*height: 500px;*/
+        margin: 40px auto;
+    }
+</style>
 <body>
-<!--car object is sent by model-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
+        <i class='fas fa-cart-plus' style='font-size:48px;color:red'></i>
         <ul class="navbar-nav">
             <li class="nav-item active">
                 <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
@@ -20,26 +38,38 @@
                 <a class="nav-link" th:href="@{/newCategory}">Add Category</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/newCar}">Add Car</a>
+                <a class="nav-link" th:href="@{/newItem}">Add Item</a>
             </li>
         </ul>
     </div>
 </nav>
 
-<p> </p>>
-
-
-<div class="card border-dark mb-3" style="max-width: 18rem;">
-    <div class="card-header"  th:inline="text">[[${car.manufacturer}]] </div>
-    <div class="card-body text-dark">
-        <h6 th:inline="text"><span> <b>Model:</b></span> [[${car.model}]]  </h6>
-        <h6 th:inline="text"><span> <b>Category:</b></span> [[${car.category.name}]]  </h6>
-        <h6 th:inline="text"><span> <b>Year:</b></span> [[${car.year}]]  </h6>
-        <h6 th:inline="text"><span> <b>MSRP:</b></span> $[[${car.msrp}]].00  </h6>
-        <a th:href="@{/update/{id}(id=${car.id})}" class="btn btn-primary">Update</a>
-        <a th:href="@{/delete/{id}(id=${car.id})}" class="btn btn-primary">Delete</a>
+<!--Adding an item is not allowed if no category-->
+<div th:if="${count}==0">
+    <div class="alert alert-danger" role="alert">
+       Please add a category first!
+        <button><a th:href="@{/newCategory}">Add Category</a></button>
     </div>
 </div>
+<div th:unless="${count}==0">
+<form class="form" th:action="@{/saveitemform}" th:object="${item}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    Name : <br/><input type="text" th:field="*{name}" /><br/>
+    Quantity: <br/> <input type="text" th:field="*{quantity}" /><br/>
+    Price: <br/><input type="number" th:field="*{price}" /><br/>
+    Description: <br/><input type="text" th:field="*{description}" /><br/>
+
+
+    Category: <select th:field="*{category}">
+    <option th:each ="category: ${categories}"
+            th:text="${category.name}"
+            th:value="${category.id}">
+    </option>
+</select>
+    <button type="submit" value="Submit" class="btn btn-primary">Add</button>
+</form>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
